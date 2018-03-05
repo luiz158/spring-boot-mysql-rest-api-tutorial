@@ -86,12 +86,13 @@ public class NoteControllerMysql {
 	
 	@GetMapping("/getData")
     public String getData() throws SQLException {
-    	Connection con = connectToDB("quickekart","quickekart","quick/");
+    	
 
     	 Statement statement;
     	 ResultSet rs=null;
     	 StringBuilder sb=new StringBuilder();
 		try {
+			Connection con = connectToDB("quickekart","quickekart","quick/");
 			statement = con.createStatement();
 		
     	 
@@ -108,5 +109,29 @@ public class NoteControllerMysql {
 		} 
     }
 
+	@GetMapping("/getData1")
+    public String getData1() throws SQLException {
+    	
+
+    	 Statement statement;
+    	 ResultSet rs=null;
+    	 StringBuilder sb=new StringBuilder();
+		try {
+			Connection con = connectToDB("quickekart","quickekart","quick");
+			statement = con.createStatement();
+		
+    	 
+    	  rs=statement.executeQuery("select lookup_name from cmn_lookup_mst ");
+    	  
+    	  while(rs.next()) {
+    		  sb.append(rs.getString("lookup_name"));
+    	  }
+    	  
+    	  return sb.toString();
+		} catch (SQLException e) { 
+			e.printStackTrace();
+			return e.getMessage();
+		} 
+    }
     
 }
