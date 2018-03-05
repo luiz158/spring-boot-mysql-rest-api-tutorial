@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;  
@@ -45,11 +46,12 @@ public class NoteControllerMysql {
     	 
     	String q = "";
     	String r = "";
-    	ClassLoader classLoader = getClass().getClassLoader();
-    	File f = new File(classLoader.getResource("backup_db_quick_mysql.sql").getFile()); 
+    	
+ 
     	try {
+    		File file = new ClassPathResource("backup_db_quick_mysql.sql").getFile();
     		con=connectToDB("quickekart","quickekart","");
-    	    BufferedReader bf = new BufferedReader(new FileReader(f));
+    	    BufferedReader bf = new BufferedReader(new FileReader(file));
     	        String line = null;
     	        line = bf.readLine();
     	        while (line != null) {
