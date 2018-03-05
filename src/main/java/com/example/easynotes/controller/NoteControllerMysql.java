@@ -12,13 +12,9 @@ import java.util.Properties;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestController;  
 
-import com.example.easynotes.model.Note;  
-
-/**
- * Created by rajeevkumarsingh on 27/06/17.
- */
+ 
 @RestController
 @RequestMapping("/mysql")
 public class NoteControllerMysql {
@@ -26,7 +22,7 @@ public class NoteControllerMysql {
 	private Connection connectToDB(String username, String password,String db) {
 	    try {
 	        Class.forName("com.mysql.jdbc.Driver");
-	        String url = "jdbc:mysql://mysql:3306/"+db;
+	        String url = "jdbc:mysql://172.30.129.40:3306/"+db;
 	        Properties objProperties = new Properties();
 	        objProperties.put("user", username);
 	        objProperties.put("password", password);
@@ -44,15 +40,15 @@ public class NoteControllerMysql {
     
 
 	@GetMapping("/createSchema")
-    public Note createSchema() {
-    	Connection con = connectToDB("quickekart","quickekart","");
-    	/* Note that con is a connection to database, and not the server.
-    	if You have a connection to the server, the first command in the dumpfile should be the
-    	USE db_name; */
+    public String  createSchema() {
+		Connection con = null;
+    	 
     	String q = "";
+    	String r = "";
     	ClassLoader classLoader = getClass().getClassLoader();
     	File f = new File(classLoader.getResource("backup_db_quick_mysql.sql").getFile()); 
     	try {
+    		con=connectToDB("quickekart","quickekart","");
     	    BufferedReader bf = new BufferedReader(new FileReader(f));
     	        String line = null;
     	        line = bf.readLine();
@@ -63,6 +59,7 @@ public class NoteControllerMysql {
     	        bf.close();
     	    } catch (Exception ex) {
     	        ex.printStackTrace();
+    	        r+=ex.getMessage()+"\n";
     	    }
     	// Now we have the content of the dumpfile in 'q'.
     	// We must separate the queries, so they can be executed. And Java Simply does this:
@@ -74,14 +71,16 @@ public class NoteControllerMysql {
     	        statement.execute(s);
     	    }
     	} catch (Exception ex) {
-    		ex.printStackTrace();
+    		ex.printStackTrace(); 
     	}
     	try {
+    		if(con!=null)
 			con.close();
 		} catch (SQLException e) { 
 			e.printStackTrace();
+			r+=e.getMessage()+"\n";
 		}
-		return null;
+		return r + "\n\n\n\n=========================================\n\n\n\n" + q;
     }
 	
 	@GetMapping("/getData")
@@ -103,7 +102,7 @@ public class NoteControllerMysql {
     	  }
     	  
     	  return sb.toString();
-		} catch (SQLException e) { 
+		} catch (Exception e) { 
 			e.printStackTrace();
 			return e.getMessage();
 		} 
@@ -128,7 +127,7 @@ public class NoteControllerMysql {
     	  }
     	  
     	  return sb.toString();
-		} catch (SQLException e) { 
+		} catch (Exception e) { 
 			e.printStackTrace();
 			return e.getMessage();
 		} 
