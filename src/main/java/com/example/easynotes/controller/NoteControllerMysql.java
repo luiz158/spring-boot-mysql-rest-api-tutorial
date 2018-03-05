@@ -56,7 +56,7 @@ public class NoteControllerMysql {
                 q = reader.lines().collect(Collectors.joining("\n"));
                 reader.close();
              
-    		con=connectToDB("quickekart","quickekart","");
+    		con=connectToDB("root","quickekart","");
     	     
     	// Now we have the content of the dumpfile in 'q'.
     	// We must separate the queries, so they can be executed. And Java Simply does this:
@@ -94,7 +94,7 @@ public class NoteControllerMysql {
     	 ResultSet rs=null;
     	 StringBuilder sb=new StringBuilder("Blank");
 		try {
-			Connection con = connectToDB("quickekart","quickekart","quick/");
+			Connection con = connectToDB("root","quickekart","quick/");
 			statement = con.createStatement();
 		
     	 
@@ -119,7 +119,7 @@ public class NoteControllerMysql {
     	 ResultSet rs=null;
     	 StringBuilder sb=new StringBuilder("Blank");
 		try {
-			Connection con = connectToDB("quickekart","quickekart","quick");
+			Connection con = connectToDB("root","quickekart","quick");
 			statement = con.createStatement();
 		
     	 
