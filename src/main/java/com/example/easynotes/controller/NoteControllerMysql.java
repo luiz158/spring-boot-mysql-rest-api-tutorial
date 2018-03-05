@@ -5,12 +5,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,10 +23,10 @@ import com.example.easynotes.model.Note;
 @RequestMapping("/mysql")
 public class NoteControllerMysql {
  
-	private Connection connectToDB(String username, String password) {
+	private Connection connectToDB(String username, String password,String db) {
 	    try {
 	        Class.forName("com.mysql.jdbc.Driver");
-	        String url = "jdbc:mysql://mysql:3306/";
+	        String url = "jdbc:mysql://mysql:3306/"+db;
 	        Properties objProperties = new Properties();
 	        objProperties.put("user", username);
 	        objProperties.put("password", password);
@@ -45,7 +45,7 @@ public class NoteControllerMysql {
 
 	@GetMapping("/createSchema")
     public Note createSchema() {
-    	Connection con = connectToDB("quickekart","quickekart");
+    	Connection con = connectToDB("quickekart","quickekart","");
     	/* Note that con is a connection to database, and not the server.
     	if You have a connection to the server, the first command in the dumpfile should be the
     	USE db_name; */
@@ -82,6 +82,30 @@ public class NoteControllerMysql {
 			e.printStackTrace();
 		}
 		return null;
+    }
+	
+	@GetMapping("/getData")
+    public String getData() throws SQLException {
+    	Connection con = connectToDB("quickekart","quickekart","quick");
+
+    	 Statement statement;
+    	 ResultSet rs=null;
+    	 StringBuilder sb=new StringBuilder();
+		try {
+			statement = con.createStatement();
+		
+    	 
+    	  rs=statement.executeQuery("select lookup_name from cmn_lookup_mst ");
+    	  
+    	  while(rs.next()) {
+    		  sb.append(rs.getString("lookup_name"));
+    	  }
+    	  
+    	  return sb.toString();
+		} catch (SQLException e) { 
+			e.printStackTrace();
+			throw e;
+		} 
     }
 
     
