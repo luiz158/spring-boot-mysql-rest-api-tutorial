@@ -86,7 +86,7 @@ public class NoteControllerMysql {
 	
 	@GetMapping("/getData")
     public String getData() throws SQLException {
-    	Connection con = connectToDB("quickekart","quickekart","quick");
+    	Connection con = connectToDB("quickekart","quickekart","quick/");
 
     	 Statement statement;
     	 ResultSet rs=null;
@@ -104,7 +104,7 @@ public class NoteControllerMysql {
     	  return sb.toString();
 		} catch (SQLException e) { 
 			e.printStackTrace();
-			throw e;
+			return e.getMessage();
 		} 
     }
 
