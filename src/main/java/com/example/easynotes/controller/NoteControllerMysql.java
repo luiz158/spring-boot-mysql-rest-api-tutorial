@@ -69,8 +69,10 @@ public class NoteControllerMysql {
     	    }
     	} catch (Exception ex) {
     		ex.printStackTrace(); 
+    		r+=ex.getMessage()+"\n";
     	}
     	try {
+    		con.commit();
     		if(con!=null)
 			con.close();
 		} catch (SQLException e) { 
