@@ -3,12 +3,14 @@ package com.example.easynotes.controller;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,21 +50,14 @@ public class NoteControllerMysql {
     	String r = "";
     	
  
-    	try {
-    		File file = new ClassPathResource("backup_db_quick_mysql.sql").getFile();
+    	try {    		 
+                ClassPathResource resource = new ClassPathResource("backup_db_quick_mysql.sql");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
+                q = reader.lines().collect(Collectors.joining("\n"));
+                reader.close();
+             
     		con=connectToDB("quickekart","quickekart","");
-    	    BufferedReader bf = new BufferedReader(new FileReader(file));
-    	        String line = null;
-    	        line = bf.readLine();
-    	        while (line != null) {
-    	            q = q + line + "\n";
-    	            line = bf.readLine();
-    	        }
-    	        bf.close();
-    	    } catch (Exception ex) {
-    	        ex.printStackTrace();
-    	        r+=ex.getMessage()+"\n";
-    	    }
+    	     
     	// Now we have the content of the dumpfile in 'q'.
     	// We must separate the queries, so they can be executed. And Java Simply does this:
     	String[] commands = q.split(";");
@@ -82,6 +77,10 @@ public class NoteControllerMysql {
 			e.printStackTrace();
 			r+=e.getMessage()+"\n";
 		}
+    	}catch (Exception e) { 
+			e.printStackTrace();
+			r+=e.getMessage()+"\n";
+		}
 		return r + "\n\n\n\n=========================================\n\n\n\n" + q;
     }
 	
@@ -91,7 +90,7 @@ public class NoteControllerMysql {
 
     	 Statement statement;
     	 ResultSet rs=null;
-    	 StringBuilder sb=new StringBuilder();
+    	 StringBuilder sb=new StringBuilder("Blank");
 		try {
 			Connection con = connectToDB("quickekart","quickekart","quick/");
 			statement = con.createStatement();
@@ -116,7 +115,7 @@ public class NoteControllerMysql {
 
     	 Statement statement;
     	 ResultSet rs=null;
-    	 StringBuilder sb=new StringBuilder();
+    	 StringBuilder sb=new StringBuilder("Blank");
 		try {
 			Connection con = connectToDB("quickekart","quickekart","quick");
 			statement = con.createStatement();
