@@ -5,12 +5,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -82,6 +82,30 @@ public class NoteControllerMysql {
 			e.printStackTrace();
 		}
 		return null;
+    }
+	
+	@GetMapping("/getData")
+    public String getData() throws SQLException {
+    	Connection con = connectToDB("quickekart","quickekart");
+
+    	 Statement statement;
+    	 ResultSet rs=null;
+    	 StringBuilder sb=new StringBuilder();
+		try {
+			statement = con.createStatement();
+		
+    	 
+    	  rs=statement.executeQuery("select lookup_name from cmn_lookup_mst ");
+    	  
+    	  while(rs.next()) {
+    		  sb.append(rs.getString("lookup_name"));
+    	  }
+    	  
+    	  return sb.toString();
+		} catch (SQLException e) { 
+			e.printStackTrace();
+			throw e;
+		} 
     }
 
     
