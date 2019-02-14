@@ -35,7 +35,7 @@ public class NoteController {
 
     @GetMapping("/notes/dummy")
     public ResponseEntity<Note> getNoteById() {
-        Note note = new Node();
+        Note note = new Note();
         note.setTitle("Dummy");
         note.setContent("Dummy Content");
         note.setId(12l); 
