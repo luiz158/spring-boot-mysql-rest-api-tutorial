@@ -33,6 +33,15 @@ public class NoteController {
         return ResponseEntity.ok().body(note);
     }
 
+    @GetMapping("/notes/dummy")
+    public ResponseEntity<Note> getNoteById() {
+        Note note = new Node();
+        note.setTitle("Dummy");
+        note.setContent("Dummy Content");
+        note.setId(12l); 
+        return ResponseEntity.ok().body(note);
+    }
+
     @PostMapping("/notes")
     public Note createNote(@Valid @RequestBody Note note) {
         return noteRepository.save(note);
