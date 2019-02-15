@@ -12,7 +12,7 @@
 <link rel="import" href="menuBar.html">
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
@@ -24,13 +24,25 @@ var doc = document.querySelector('link[rel="import"]').import;
 var text = doc.querySelector('template-menu');
 document.body.appendChild(text.cloneNode(true));
 </script>
-<br>
+	<br>
 
 
 	<h1>Hello, world!</h1>
 	<div class="container-fluid">
 		<h3>User List</h3>
-		<p></p>
+
+		<div class="userP"></div>
+		<script type="text/javascript">
+	$.get( "api/notes", function( data ) {
+			var dataString="";
+					$.each( data, function( index, value ) {
+		 				console.log('title :' + value.title + ' , content :'+value.content);
+		 				dataString+='title :' + value.title + ' , content :'+value.content+ '<br/>' ;
+					});  
+			 $("div.userP").html(dataString);
+	});
+	
+	</script>
 	</div>
 </body>
 </html>
