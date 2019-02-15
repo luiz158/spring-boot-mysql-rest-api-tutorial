@@ -19,9 +19,9 @@
 </head>
 <body>
 	<script>
-var doc = document.querySelector('link[rel="import"]',crossorigin='anonymous').import;
+var doc = document.querySelector('link[rel="import"]').import;
 // Grab DOM from doc.html's document.
-var text = doc.querySelector('.doc');
+var text = doc.querySelector('template-menu');
 document.body.appendChild(text.cloneNode(true));
 </script>
 <br>
