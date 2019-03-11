@@ -1,5 +1,5 @@
 kind: Service
-apiVersion: extensions/v1beta1
+apiVersion: apiVersion=v1
 metadata:
   name: notesApp
   namespace: euc-ns
