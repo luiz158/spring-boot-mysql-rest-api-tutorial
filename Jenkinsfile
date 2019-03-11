@@ -17,10 +17,11 @@ pipeline {
 
   stage('Build') {
    steps {
-    sh "mvn clean package"
+   // sh "mvn clean package"
+    sh "mvn -B -DskipTests clean package"
    }
   }
-  stage('UnitTest') {
+  /*stage('UnitTest') {
    steps {
     sh "mvn test"
    }
@@ -29,7 +30,7 @@ pipeline {
      junit 'target/surefire-reports/*.xml'
     }
    }
-  }
+  }*/
   //commanted for time being
   /*stage('StaticCode Analysis') {
    steps {
