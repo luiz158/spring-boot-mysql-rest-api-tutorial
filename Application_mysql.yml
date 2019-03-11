@@ -1,61 +1,58 @@
-
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: euc-ns
----
 apiVersion: v1
 kind: Service
 metadata:
   name: mysql
-  namespace: euc-ns
-  labels:
-    app: mysql
 spec:
+  #type: NodePort
   ports:
   - port: 3306
-     # Which port on the node is the service available through?
-    type: NodePort   
-    nodePort: 31234
-    name: mysql
+    #targetPort: 3306
+    #nodePort: 31000
   selector:
     app: mysql
-   
+  clusterIP: None
 ---
-apiVersion: apps/v1beta1
-kind: StatefulSet
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: mysql
-  namespace: euc-ns
 spec:
-  serviceName: "mysql"
-  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
         app: mysql
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
-      - name: mysql
-        image: mysql:5.6
-        env:
+      - image: mysql:5.7
+        name: mysql
+     env:
           # Use secret in real usage
         - name: root
-          value: root
+          value: root          
         ports:
         - containerPort: 3306
           name: mysql
         volumeMounts:
-        - name: mysql-vol
+        - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
-  volumeClaimTemplates:
-  - metadata:
-    name: mysql-vol
-    annotations:
-      volume.beta.kubernetes.io/storage-class: portworx-repl-2
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 20Gi
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
