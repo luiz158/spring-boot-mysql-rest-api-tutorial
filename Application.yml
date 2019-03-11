@@ -1,5 +1,5 @@
 kind: Service
-apiVersion: apiVersion=v1
+apiVersion: v1
 metadata:
   name: notesApp
   namespace: euc-ns
@@ -11,7 +11,7 @@ spec:
     port: 8080
   type: NodePort
 ---
-apiVersion: extensions/v1beta1
+apiVersion: v1
 kind: Deployment
 metadata:
   name: notesApp
