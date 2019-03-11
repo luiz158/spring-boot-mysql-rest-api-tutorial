@@ -4,14 +4,14 @@ metadata:
   name: mysql
   namespace: euc-ns
 spec:
-  #type: NodePort
+  type: NodePort
   ports:
   - port: 3306
-    #targetPort: 3306
-    #nodePort: 31000
+    targetPort: 3306
+    nodePort: 31000
   selector:
     app: mysql
-  clusterIP: None
+  #clusterIP: None
 ---
 apiVersion: v1    
 kind: Secret
