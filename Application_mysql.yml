@@ -15,7 +15,7 @@ spec:
   ports:
   - port: 3306
      # Which port on the node is the service available through?
-  - nodePort: 31234
+    nodePort: 31234
     name: mysql
   clusterIP: None
   selector:
