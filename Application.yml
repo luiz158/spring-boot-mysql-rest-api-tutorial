@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: notesapp
-          image: venkatadri/springboot-notesapp
+          image: venkatadri/springboot-notesapp:10
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
