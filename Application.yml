@@ -1,11 +1,11 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: notesApp
+  name: notesapp
   namespace: euc-ns
 spec:
   selector:
-    app: notesApp
+    app: notesapp
   ports:
   - protocol: TCP
     port: 8080
@@ -14,20 +14,20 @@ spec:
 apiVersion: v1
 kind: Deployment
 metadata:
-  name: notesApp
+  name: notesapp
   namespace: euc-ns
 spec:
   selector:
       matchLabels:
-        app: notesApp
+        app: notesapp
   replicas: 2
   template:
     metadata:
       labels:
-        app: notesApp
+        app: notesapp
     spec:
       containers:
-        - name: notesApp
+        - name: notesapp
           image: venkatadri/springboot-notesapp
           imagePullPolicy: Always
           ports:
