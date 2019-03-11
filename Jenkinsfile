@@ -70,7 +70,7 @@ pipeline {
    }
   }
   
-  stage('Deploy the application') {
+  stage('Deploy the database') {
    steps{
    //Deploying the docker image as the service using kubernets cd plug in
    //mehtod to deploy the ymal file
