@@ -38,14 +38,15 @@ spec:
     metadata:
       labels:
         app: mysql
-    spec:
+spec:
       containers:
       - image: mysql:5.7
         name: mysql
-     env:
+        env:
+          # Use secret in real usage
           # Use secret in real usage
         - name: root
-          value: root          
+          value: root         
         ports:
         - containerPort: 3306
           name: mysql
