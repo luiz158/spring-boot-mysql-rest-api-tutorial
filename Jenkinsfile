@@ -69,6 +69,21 @@ pipeline {
     }
    }
   }
+  
+  stage('Deploy the application') {
+   steps{
+   //Deploying the docker image as the service using kubernets cd plug in
+   //mehtod to deploy the ymal file
+   kubernetesDeploy(
+    kubeconfigId: 'kubeconfig',
+    configs: 'Application_mysql.yml',
+    enableConfigSubstitution: false
+   )
+   }
+
+
+
+  }
   stage('Deploy the application') {
    steps{
    //Deploying the docker image as the service using kubernets cd plug in
