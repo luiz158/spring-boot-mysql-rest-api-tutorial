@@ -12,7 +12,17 @@ spec:
     app: mysql
   clusterIP: None
 ---
-
+apiVersion: v1    
+kind: Secret
+metadata:
+  name: mysql-secret
+type: Opaque
+data:
+  MYSQL_ROOT_PASSWORD: cGFzc3dvcmQ= #password
+  MYSQL_DATABASE: dGVzdA== #test
+  MYSQL_USER: dGVzdHVzZXI= #testuser
+  MYSQL_PASSWORD: dGVzdDEyMw== #test123
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -24,7 +34,7 @@ spec:
     requests:
       storage: 5Gi
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
@@ -44,9 +54,26 @@ spec:
         name: mysql
         env:
           # Use secret in real usage
-          # Use secret in real usage
-        - name: root
-          value: root         
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: MYSQL_ROOT_PASSWORD
+        - name: MYSQL_DATABASE
+          valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: MYSQL_DATABASE
+        - name: MYSQL_USER
+          valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: MYSQL_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: MYSQL_PASSWORD          
         ports:
         - containerPort: 3306
           name: mysql
