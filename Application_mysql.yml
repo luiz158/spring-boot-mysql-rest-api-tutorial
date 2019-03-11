@@ -18,7 +18,6 @@ spec:
     type: NodePort   
     nodePort: 31234
     name: mysql
-  clusterIP: None
   selector:
     app: mysql
    
