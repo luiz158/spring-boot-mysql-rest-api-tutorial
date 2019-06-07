@@ -1,5 +1,5 @@
 create table funcionario (
-    idFuncionario int not null auto_increment,
+    id_funcionario bigint not null auto_increment,
     nome varchar(70) default null,
     rua varchar(80) default null,
     numero int default null,
@@ -12,69 +12,69 @@ create table funcionario (
     telefone varchar(15) default null,
     cargo varchar(30) default null,
     administrativo boolean,
-    dataNascimento date,
-    primary key (idFuncionario)
+    data_nascimento date,
+    primary key (id_funcionario)
 );
 
 create table setor (
-    idSetor int not null auto_increment,
+    id_setor bigint not null auto_increment,
     descricao varchar(50),
     responsavel int,
     foreign key (responsavel)
-        references funcionario (idFuncionario),
-    primary key (idSetor)
+        references funcionario (id_funcionario),
+    primary key (id_setor)
 );
 
 create table epi (
-    idEpi int not null auto_increment,
+    id_epi bigint not null auto_increment,
     nome varchar(50),
     tipo varchar(25),
-    primary key (idEpi)
+    primary key (id_epi)
 );
 
 create table epi_setor (
-    idEpiSetor int not null auto_increment,
+    id_epi_setor bigint not null auto_increment,
     epi int,
     setor int,
     foreign key (epi)
-        references epi (idEpi),
+        references epi (id_epi),
     foreign key (setor)
-        references setor (idSetor),
-    primary key (idEpiSetor)
+        references setor (id_setor),
+    primary key (id_epi_setor)
 );
 
 create table epi_funcionario (
-    idEpiFuncionario int not null auto_increment,
+    id_epi_funcionario bigint not null auto_increment,
     epi int,
     responsavel int,
     validade date,
     foreign key (epi)
-        references epi (idEpi),
+        references epi (id_epi),
     foreign key (responsavel)
-        references funcionario (idFuncionario),
-    primary key (idEpiFuncionario)
+        references funcionario (id_funcionario),
+    primary key (id_epi_funcionario)
 );
 
 create table historico (
-    idHistorico int not null auto_increment,
+    id_historico bigint not null auto_increment,
     status boolean,
     data date,
     funcionario int,
     setor int,
     foreign key (funcionario)
-        references funcionario (idFuncionario),
+        references funcionario (id_funcionario),
     foreign key (setor)
-        references setor (idSetor),
-    primary key (idHistorico)
+        references setor (id_setor),
+    primary key (id_historico)
 );
 
 create table historico_epi (
-    idHistoricoEpi int not null auto_increment,
+    id_historico_epi bigint not null auto_increment,
     epi int,
-    historico int,
-    foreign key (historico)
-        references historico (idHistorico),
+    idHistorico int,
+    foreign key (id_historico)
+        references historico (id_epi),
     foreign key (epi)
-        references epi (idEpi),
-    primary key (idHistoricoEpi)
+        references epi (id_epi),
+    primary key (id_historico_epi)
 );
