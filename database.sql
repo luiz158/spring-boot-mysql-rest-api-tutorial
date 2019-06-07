@@ -19,7 +19,7 @@ create table funcionario (
 create table setor (
     id_setor bigint not null auto_increment,
     descricao varchar(50),
-    responsavel int,
+    responsavel bigint,
     foreign key (responsavel)
         references funcionario (id_funcionario),
     primary key (id_setor)
@@ -34,8 +34,8 @@ create table epi (
 
 create table epi_setor (
     id_epi_setor bigint not null auto_increment,
-    epi int,
-    setor int,
+    epi bigint,
+    setor bigint,
     foreign key (epi)
         references epi (id_epi),
     foreign key (setor)
@@ -45,8 +45,8 @@ create table epi_setor (
 
 create table epi_funcionario (
     id_epi_funcionario bigint not null auto_increment,
-    epi int,
-    responsavel int,
+    epi bigint,
+    responsavel bigint,
     validade date,
     foreign key (epi)
         references epi (id_epi),
@@ -59,8 +59,8 @@ create table historico (
     id_historico bigint not null auto_increment,
     status boolean,
     data date,
-    funcionario int,
-    setor int,
+    funcionario bigint,
+    setor bigint,
     foreign key (funcionario)
         references funcionario (id_funcionario),
     foreign key (setor)
@@ -70,10 +70,10 @@ create table historico (
 
 create table historico_epi (
     id_historico_epi bigint not null auto_increment,
-    epi int,
-    idHistorico int,
+    epi bigint,
+    id_historico bigint,
     foreign key (id_historico)
-        references historico (id_epi),
+        references historico (id_historico),
     foreign key (epi)
         references epi (id_epi),
     primary key (id_historico_epi)
