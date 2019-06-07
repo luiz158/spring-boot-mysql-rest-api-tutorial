@@ -1,6 +1,6 @@
-package com.example.easynotes.repository;
+package com.controle.epi.repository;
 
-import com.example.easynotes.model.Note;
+import com.controle.epi.model.Note;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

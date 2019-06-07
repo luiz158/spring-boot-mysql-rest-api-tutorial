@@ -1,4 +1,4 @@
-package com.example.easynotes.controller;
+package com.controle.epi.controller;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +11,6 @@ public class IndexController {
 
     @GetMapping
     public String sayHello() {
-        return "Hello and Welcome to the EasyNotes application. You can create a new Note by making a POST request to /api/notes endpoint.";
+        return "Hello and Welcome to the controleepi application. You can create a new Note by making a POST request to /api/notes endpoint.";
     }
 }

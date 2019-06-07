@@ -1,8 +1,8 @@
-package com.example.easynotes.controller;
+package com.controle.epi.controller;
 
-import com.example.easynotes.exception.ResourceNotFoundException;
-import com.example.easynotes.model.Note;
-import com.example.easynotes.repository.NoteRepository;
+import com.controle.epi.exception.ResourceNotFoundException;
+import com.controle.epi.model.Note;
+import com.controle.epi.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -33,7 +33,7 @@ create database notes_app
 
 ```bash
 mvn package
-java -jar target/easy-notes-1.0.0.jar
+java -jar target/controle-epi-1.0.0.jar
 ```
 
 Alternatively, you can run the app without packaging it using -
