@@ -27,32 +27,32 @@ public class SetorController {
     }
 
     @PostMapping("/setor")
-    public Setor createNote(@Valid @RequestBody Setor setor) {
+    public Setor createSetor(@Valid @RequestBody Setor setor) {
         return setorRepository.save(setor);
     }
 
     @GetMapping("/setor/{id}")
-    public Setor getNoteById(@PathVariable(value = "id") Long setorId) {
+    public Setor getSetorById(@PathVariable(value = "id") Long setorId) {
         return setorRepository.findById(setorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Setor", "id", setorId));
     }
 
     @PutMapping("/setor/{id}")
-    public Setor updateNote(@PathVariable(value = "id") Long setorId,
-                                           @Valid @RequestBody Setor noteDetails) {
+    public Setor updateSetor(@PathVariable(value = "id") Long setorId,
+                                           @Valid @RequestBody Setor setorDetails) {
 
         Setor setor = setorRepository.findById(setorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Setor", "id", setorId));
 
-        setor.setDescricao(noteDetails.getDescricao());
-        setor.setResponsavel(noteDetails.getResponsavel());
+//        setor.setDescricao(noteDetails.getDescricao());
+//        setor.setResponsavel(noteDetails.getResponsavel());
 
         Setor updatedSetor = setorRepository.save(setor);
         return updatedSetor;
     }
 
     @DeleteMapping("/setor/{id}")
-    public ResponseEntity<?> deleteNote(@PathVariable(value = "id") Long setorId) {
+    public ResponseEntity<?> deleteSetor(@PathVariable(value = "id") Long setorId) {
         Setor setor = setorRepository.findById(setorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Note", "id", setorId));
 
