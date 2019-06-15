@@ -11,7 +11,7 @@ create table funcionario (
     email varchar(80) default null,
     telefone varchar(15) default null,
     cargo varchar(30) default null,
-    administrativo boolean,
+    admin boolean,
     data_nascimento date,
     primary key (id_funcionario)
 );

@@ -9,9 +9,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
-/**
- * Created by rajeevkumarsingh on 27/06/17.
- */
 @Entity
 @Table(name = "setor")
 @EntityListeners(AuditingEntityListener.class)
@@ -24,7 +21,9 @@ public class Setor {
 
     private String descricao;
 
-    private Long responsavel;
+    @ManyToOne
+    @JoinColumn(name = "responsavel")
+    private Funcionario responsavel;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -48,7 +47,7 @@ public class Setor {
         this.descricao = descricao;
     }
 
-    public void setResponsavel(Long responsavel) {
+    public void setResponsavel(Funcionario responsavel) {
         this.responsavel = responsavel;
     }
 
@@ -64,7 +63,7 @@ public class Setor {
         return descricao;
     }
 
-    public Long getResponsavel() {
+    public Funcionario getResponsavel() {
         return responsavel;
     }
 

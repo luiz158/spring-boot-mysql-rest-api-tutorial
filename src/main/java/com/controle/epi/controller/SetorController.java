@@ -2,7 +2,6 @@ package com.controle.epi.controller;
 
 import com.controle.epi.exception.ResourceNotFoundException;
 import com.controle.epi.model.Setor;
-import com.controle.epi.repository.NoteRepository;
 import com.controle.epi.repository.SetorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

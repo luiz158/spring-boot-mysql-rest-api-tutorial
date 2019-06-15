@@ -21,6 +21,24 @@ public class EpiSetor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEpiSetor;
+    
+    @ManyToOne
+    @JoinColumn(name = "epi")
+    private Epi epi;
+
+    @ManyToOne
+    @JoinColumn(name = "setor")
+    private Setor setor;
+
+    @Column(nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createdAt;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date updatedAt;
 
     public Long getIdEpiSetor() {
         return idEpiSetor;
@@ -61,24 +79,5 @@ public class EpiSetor {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
-    
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Epi epi;
-
-    @ManyToOne
-    @JoinColumn(name = "question_id")
-    private Setor setor;
-
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdAt;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedAt;
-
    
 }
