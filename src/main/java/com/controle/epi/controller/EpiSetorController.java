@@ -1,8 +1,13 @@
 package com.controle.epi.controller;
 
 import com.controle.epi.exception.ResourceNotFoundException;
+import com.controle.epi.model.Epi;
 import com.controle.epi.model.EpiSetor;
+import com.controle.epi.model.EpiSetorRequest;
+import com.controle.epi.model.Setor;
+import com.controle.epi.repository.EpiRepository;
 import com.controle.epi.repository.EpiSetorRepository;
+import com.controle.epi.repository.SetorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,15 +15,16 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-/**
- * Created by rajeevkumarsingh on 27/06/17.
- */
 @RestController
 @RequestMapping("/api")
 public class EpiSetorController {
 
     @Autowired
     EpiSetorRepository epiSetorRepository;
+    @Autowired
+    SetorRepository setorRepository;
+    @Autowired
+    EpiRepository epiRepository;
 
     @GetMapping("/epi_setor")
     public List<EpiSetor> getAllEpiSetor() {
@@ -26,7 +32,17 @@ public class EpiSetorController {
     }
 
     @PostMapping("/epi_setor")
-    public EpiSetor createEpiSetor(@Valid @RequestBody EpiSetor epiSetor) {
+    public EpiSetor createEpiSetor(@Valid @RequestBody EpiSetorRequest epiSetorRequest) {
+        EpiSetor epiSetor = new EpiSetor();
+        
+        Setor setor = setorRepository.findById(epiSetorRequest.getSetorId())
+                .orElseThrow(() -> new ResourceNotFoundException("Setor", "id", epiSetorRequest.getSetorId()));
+        Epi epi = epiRepository.findById(epiSetorRequest.getEpiId())
+                .orElseThrow(() -> new ResourceNotFoundException("Epi", "id", epiSetorRequest.getSetorId()));
+        
+        epiSetor.setSetor(setor);
+        epiSetor.setEpi(epi);
+        
         return epiSetorRepository.save(epiSetor);
     }
 
@@ -38,16 +54,20 @@ public class EpiSetorController {
 
     @PutMapping("/epi_setor/{id}")
     public EpiSetor updateEpiSetor(@PathVariable(value = "id") Long epiSetorId,
-                                           @Valid @RequestBody EpiSetor epiSetorDetails) {
+                                           @Valid @RequestBody EpiSetorRequest epiSetorRequest) {
 
         EpiSetor epiSetor = epiSetorRepository.findById(epiSetorId)
                 .orElseThrow(() -> new ResourceNotFoundException("EpiSetor", "id", epiSetorId));
 
-//        note.setTitle(noteDetails.getTitle());
-//        note.setContent(noteDetails.getContent());
-
-        EpiSetor updatedEpiSetor = epiSetorRepository.save(epiSetor);
-        return updatedEpiSetor;
+        Setor setor = setorRepository.findById(epiSetorRequest.getSetorId())
+                .orElseThrow(() -> new ResourceNotFoundException("Setor", "id", epiSetorRequest.getSetorId()));
+        Epi epi = epiRepository.findById(epiSetorRequest.getEpiId())
+                .orElseThrow(() -> new ResourceNotFoundException("Epi", "id", epiSetorRequest.getSetorId()));
+        
+        epiSetor.setSetor(setor);
+        epiSetor.setEpi(epi);
+        
+        return epiSetorRepository.save(epiSetor);
     }
 
     @DeleteMapping("/epi_setor/{id}")

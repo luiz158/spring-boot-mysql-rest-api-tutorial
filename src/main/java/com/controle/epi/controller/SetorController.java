@@ -43,8 +43,8 @@ public class SetorController {
         Setor setor = setorRepository.findById(setorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Setor", "id", setorId));
 
-//        setor.setDescricao(noteDetails.getDescricao());
-//        setor.setResponsavel(noteDetails.getResponsavel());
+        //setor.setDescricao(setorDetails.getDescricao());
+        //setor.setResponsavel(setorDetails.getResponsavel());
 
         Setor updatedSetor = setorRepository.save(setor);
         return updatedSetor;
