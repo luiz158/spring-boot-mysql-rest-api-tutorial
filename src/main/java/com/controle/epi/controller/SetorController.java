@@ -1,7 +1,10 @@
 package com.controle.epi.controller;
 
 import com.controle.epi.exception.ResourceNotFoundException;
+import com.controle.epi.model.Funcionario;
 import com.controle.epi.model.Setor;
+import com.controle.epi.model.SetorRequest;
+import com.controle.epi.repository.FuncionarioRepository;
 import com.controle.epi.repository.SetorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,8 @@ public class SetorController {
 
     @Autowired
     SetorRepository setorRepository;
+    @Autowired
+    FuncionarioRepository funcionarioRepository;
 
     @GetMapping("/setor")
     public List<Setor> getAllSetores() {
@@ -26,7 +31,15 @@ public class SetorController {
     }
 
     @PostMapping("/setor")
-    public Setor createSetor(@Valid @RequestBody Setor setor) {
+    public Setor createSetor(@Valid @RequestBody SetorRequest setorRequest) {
+        Setor setor = new Setor();
+        
+        Funcionario responsavel = funcionarioRepository.findById(setorRequest.getResponsavelId())
+                .orElseThrow(() -> new ResourceNotFoundException("Funcionario", "id", setorRequest.getResponsavelId()));
+        
+        setor.setDescricao(setorRequest.getDescricao());
+        setor.setResponsavel(responsavel);
+        
         return setorRepository.save(setor);
     }
 
@@ -38,16 +51,18 @@ public class SetorController {
 
     @PutMapping("/setor/{id}")
     public Setor updateSetor(@PathVariable(value = "id") Long setorId,
-                                           @Valid @RequestBody Setor setorDetails) {
+                                           @Valid @RequestBody SetorRequest setorRequest) {
 
         Setor setor = setorRepository.findById(setorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Setor", "id", setorId));
 
-        //setor.setDescricao(setorDetails.getDescricao());
-        //setor.setResponsavel(setorDetails.getResponsavel());
-
-        Setor updatedSetor = setorRepository.save(setor);
-        return updatedSetor;
+        Funcionario responsavel = funcionarioRepository.findById(setorRequest.getResponsavelId())
+                .orElseThrow(() -> new ResourceNotFoundException("Funcionario", "id", setorRequest.getResponsavelId()));
+        
+        setor.setDescricao(setorRequest.getDescricao());
+        setor.setResponsavel(responsavel);
+        
+        return setorRepository.save(setor);
     }
 
     @DeleteMapping("/setor/{id}")
