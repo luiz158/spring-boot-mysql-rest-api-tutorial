@@ -43,11 +43,10 @@ public class EpiController {
         Epi epi = epiRepository.findById(epiId)
                 .orElseThrow(() -> new ResourceNotFoundException("Epi", "id", epiId));
 
-//        note.setTitle(noteDetails.getTitle());
-//        note.setContent(noteDetails.getContent());
-
-        Epi updatedEpi = epiRepository.save(epi);
-        return updatedEpi;
+        epi.setNome(epiDetails.getNome());
+        epi.setTipo(epiDetails.getTipo());
+        
+        return epiRepository.save(epi);
     }
 
     @DeleteMapping("/epis/{id}")
