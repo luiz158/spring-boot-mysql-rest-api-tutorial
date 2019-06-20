@@ -9,41 +9,27 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "setor")
+@Table(name = "epi_funcionario")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
-public class Setor {
+public class EpiFuncionario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idSetor;
+    private Long idEpiFuncionario;
+    
+    private Date validade;
 
-    private String descricao;
-
-    @ManyToOne
-    @JoinColumn(name = "responsavel")
-    private Funcionario responsavel;
-
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdAt;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedAt;
-
-    public Long getIdSetor() {
-        return idSetor;
+    public void setIdEpiFuncionario(Long idEpiFuncionario) {
+        this.idEpiFuncionario = idEpiFuncionario;
     }
 
-    public void setIdSetor(Long idSetor) {
-        this.idSetor = idSetor;
+    public void setValidade(Date validade) {
+        this.validade = validade;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setEpi(Epi epi) {
+        this.epi = epi;
     }
 
     public void setResponsavel(Funcionario responsavel) {
@@ -58,8 +44,16 @@ public class Setor {
         this.updatedAt = updatedAt;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public Long getIdEpiFuncionario() {
+        return idEpiFuncionario;
+    }
+
+    public Date getValidade() {
+        return validade;
+    }
+
+    public Epi getEpi() {
+        return epi;
     }
 
     public Funcionario getResponsavel() {
@@ -73,5 +67,23 @@ public class Setor {
     public Date getUpdatedAt() {
         return updatedAt;
     }
+    
+    @ManyToOne
+    @JoinColumn(name = "epi")
+    private Epi epi;
 
+    @ManyToOne
+    @JoinColumn(name = "responsavel")
+    private Funcionario responsavel;
+
+    @Column(nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createdAt;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date updatedAt;
+   
 }

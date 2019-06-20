@@ -17,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*")
 public class EpiSetorController {
 
     @Autowired
@@ -38,7 +39,7 @@ public class EpiSetorController {
         Setor setor = setorRepository.findById(epiSetorRequest.getSetorId())
                 .orElseThrow(() -> new ResourceNotFoundException("Setor", "id", epiSetorRequest.getSetorId()));
         Epi epi = epiRepository.findById(epiSetorRequest.getEpiId())
-                .orElseThrow(() -> new ResourceNotFoundException("Epi", "id", epiSetorRequest.getSetorId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Epi", "id", epiSetorRequest.getEpiId()));
         
         epiSetor.setSetor(setor);
         epiSetor.setEpi(epi);

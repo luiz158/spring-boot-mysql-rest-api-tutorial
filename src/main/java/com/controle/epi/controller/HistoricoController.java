@@ -13,17 +13,14 @@ import com.controle.epi.repository.HistoricoEpiRepository;
 import com.controle.epi.repository.HistoricoRepository;
 import com.controle.epi.repository.SetorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-/**
- * Created by rajeevkumarsingh on 27/06/17.
- */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*")
 public class HistoricoController {
 
     @Autowired

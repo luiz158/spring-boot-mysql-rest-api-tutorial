@@ -6,13 +6,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by rajeevkumarsingh on 27/06/17.
- */
 @Entity
 @Table(name = "historico")
 @EntityListeners(AuditingEntityListener.class)
