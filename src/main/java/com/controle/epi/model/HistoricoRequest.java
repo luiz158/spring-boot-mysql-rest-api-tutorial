@@ -8,12 +8,22 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.List;
 
 public class HistoricoRequest {
     private String status;
     private Date data;
     private Long funcionarioId;
     private Long setorId;
+    private List<Long> epis;
+
+    public void setEpis(List<Long> epis) {
+        this.epis = epis;
+    }
+
+    public List<Long> getEpis() {
+        return epis;
+    }
 
     public void setStatus(String status) {
         this.status = status;

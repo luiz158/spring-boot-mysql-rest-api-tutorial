@@ -4,9 +4,12 @@ import com.controle.epi.exception.ResourceNotFoundException;
 import com.controle.epi.model.Epi;
 import com.controle.epi.model.Funcionario;
 import com.controle.epi.model.Historico;
+import com.controle.epi.model.HistoricoEpi;
 import com.controle.epi.model.HistoricoRequest;
 import com.controle.epi.model.Setor;
+import com.controle.epi.repository.EpiRepository;
 import com.controle.epi.repository.FuncionarioRepository;
+import com.controle.epi.repository.HistoricoEpiRepository;
 import com.controle.epi.repository.HistoricoRepository;
 import com.controle.epi.repository.SetorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +29,13 @@ public class HistoricoController {
     @Autowired
     HistoricoRepository historicoRepository;
     @Autowired
+    HistoricoEpiRepository historicoEpiRepository;
+    @Autowired
     FuncionarioRepository funcionarioRepository;
     @Autowired
     SetorRepository setorRepository;
+    @Autowired
+    EpiRepository epiRepository;
 
     @GetMapping("/historico")
     public List<Historico> getAllHistorico() {
@@ -50,7 +57,19 @@ public class HistoricoController {
         historico.setFuncionario(funcionario);
         historico.setStatus(historicoRequest.getStatus());
         
-        return historicoRepository.save(historico);
+        Historico result = historicoRepository.save(historico);
+        
+        for(Long epiId : historicoRequest.getEpis()){
+            Epi epi = epiRepository.findById(epiId)
+                .orElseThrow(() -> new ResourceNotFoundException("Epi", "id", epiId));
+            
+            HistoricoEpi historicoEpi = new HistoricoEpi();
+            historicoEpi.setEpi(epi);
+            historicoEpi.setIdHistorico(result.getIdHistorico());
+            historicoEpiRepository.save(historicoEpi);
+        }
+        
+        return result;
     }
 
     @GetMapping("/historico/{id}")

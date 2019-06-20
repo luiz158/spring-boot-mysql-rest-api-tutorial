@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by rajeevkumarsingh on 27/06/17.
@@ -32,7 +33,18 @@ public class Historico {
     @ManyToOne
     @JoinColumn(name = "setor")
     private Setor setor;
+    
+    @OneToMany(mappedBy="idHistorico")
+    private List<HistoricoEpi> historicoEpis;
 
+    public List<HistoricoEpi> getHistoricoEpis() {
+        return historicoEpis;
+    }
+
+    public void setHistoricoEpis(List<HistoricoEpi> historicoEpis) {
+        this.historicoEpis = historicoEpis;
+    }
+    
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
