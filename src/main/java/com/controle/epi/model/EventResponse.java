@@ -28,6 +28,6 @@ public class EventResponse {
     public void concatMessage(String epiName) {
         if(this.message.length() == 0)
             this.message = "Você não está utilizando: ";
-        this.message += epiName + ", ";
+        this.message += epiName + "; ";
     }
 }

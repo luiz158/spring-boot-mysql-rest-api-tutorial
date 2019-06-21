@@ -73,10 +73,6 @@ public class SetorController {
 
         Setor setor = setorRepository.findById(setorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Setor", "id", setorId));
-        
-        for(EpiSetor epiSetor: setor.getEpis()){
-            epiSetorRepository.delete(epiSetor);
-        }
 
         Funcionario responsavel = funcionarioRepository.findById(setorRequest.getResponsavelId())
                 .orElseThrow(() -> new ResourceNotFoundException("Funcionario", "id", setorRequest.getResponsavelId()));
@@ -85,6 +81,10 @@ public class SetorController {
         setor.setResponsavel(responsavel);
         
         Setor result = setorRepository.save(setor);
+                
+        for(EpiSetor epiSetor: setor.getEpis()){
+            epiSetorRepository.delete(epiSetor);
+        }
         
         for(Long epiId: setorRequest.getEpis()){
             Epi epi = epiRepository.findById(epiId)
