@@ -41,7 +41,7 @@ public class EpiSetorController {
         Epi epi = epiRepository.findById(epiSetorRequest.getEpiId())
                 .orElseThrow(() -> new ResourceNotFoundException("Epi", "id", epiSetorRequest.getEpiId()));
         
-        epiSetor.setSetor(setor);
+        //epiSetor.setSetor(setor);
         epiSetor.setEpi(epi);
         
         return epiSetorRepository.save(epiSetor);
@@ -65,7 +65,7 @@ public class EpiSetorController {
         Epi epi = epiRepository.findById(epiSetorRequest.getEpiId())
                 .orElseThrow(() -> new ResourceNotFoundException("Epi", "id", epiSetorRequest.getSetorId()));
         
-        epiSetor.setSetor(setor);
+        //epiSetor.setSetor(setor);
         epiSetor.setEpi(epi);
         
         return epiSetorRepository.save(epiSetor);
