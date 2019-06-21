@@ -138,12 +138,12 @@ public class Funcionario {
         this.cargo = cargo;
     }
 
-    public boolean isAdmin() {
+    public boolean isAdministrador() {
         return administrador;
     }
 
-    public void setAdmin(boolean admin) {
-        this.administrador = admin;
+    public void setAdministrador(boolean administrador) {
+        this.administrador = administrador;
     }
 
     public Date getDataNascimento() {

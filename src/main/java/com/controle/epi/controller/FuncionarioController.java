@@ -53,7 +53,7 @@ public class FuncionarioController {
         funcionario.setTelefone(funcionarioDetails.getTelefone());
         funcionario.setCargo(funcionarioDetails.getCargo());
         funcionario.setDataNascimento(funcionarioDetails.getDataNascimento());
-        funcionario.setAdmin(funcionarioDetails.isAdmin());
+        funcionario.setAdministrador(funcionarioDetails.isAdministrador());
 
         Funcionario updatedFuncionario = funcionarioRepository.save(funcionario);
         return updatedFuncionario;
