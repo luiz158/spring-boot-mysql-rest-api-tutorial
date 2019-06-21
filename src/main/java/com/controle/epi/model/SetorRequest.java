@@ -1,9 +1,13 @@
 package com.controle.epi.model;
 
+import java.util.List;
+
 public class SetorRequest {
     private Long idSetor;
     private String descricao;
     private Long responsavelId;
+    
+    private List<Long> epis;
 
     public Long getIdSetor() {
         return idSetor;
@@ -27,6 +31,14 @@ public class SetorRequest {
 
     public Long getResponsavelId() {
         return responsavelId;
+    }
+
+    public void setEpis(List<Long> epis) {
+        this.epis = epis;
+    }
+
+    public List<Long> getEpis() {
+        return epis;
     }
 
 }
