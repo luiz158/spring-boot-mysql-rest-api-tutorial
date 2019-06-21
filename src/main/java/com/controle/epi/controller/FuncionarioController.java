@@ -41,8 +41,19 @@ public class FuncionarioController {
         Funcionario funcionario = funcionarioRepository.findById(funcionarioId)
                 .orElseThrow(() -> new ResourceNotFoundException("Funcionario", "idFuncionario", funcionarioId));
 
-//        funcionario.setTitle(noteDetails.getTitle());
-//        funcionario.setContent(noteDetails.getContent());
+        funcionario.setNome(funcionarioDetails.getNome());
+        funcionario.setRua(funcionarioDetails.getRua());
+        funcionario.setNumero(funcionarioDetails.getNumero());
+        funcionario.setCidade(funcionarioDetails.getCidade());
+        funcionario.setEstado(funcionarioDetails.getEstado());
+        funcionario.setPais(funcionarioDetails.getPais());
+        funcionario.setCep(funcionarioDetails.getCep());
+        funcionario.setCpf(funcionarioDetails.getCpf());
+        funcionario.setEmail(funcionarioDetails.getEmail());
+        funcionario.setTelefone(funcionarioDetails.getTelefone());
+        funcionario.setCargo(funcionarioDetails.getCargo());
+        funcionario.setDataNascimento(funcionarioDetails.getDataNascimento());
+        funcionario.setAdmin(funcionarioDetails.isAdmin());
 
         Funcionario updatedFuncionario = funcionarioRepository.save(funcionario);
         return updatedFuncionario;
