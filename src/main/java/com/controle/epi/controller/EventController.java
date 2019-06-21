@@ -15,15 +15,13 @@ import com.controle.epi.repository.FuncionarioRepository;
 import com.controle.epi.repository.HistoricoEpiRepository;
 import com.controle.epi.repository.HistoricoRepository;
 import com.controle.epi.repository.SetorRepository;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.persistence.Query;
 
 @RestController
 @RequestMapping("/api")
@@ -60,7 +58,12 @@ public class EventController {
             }
         }
         
-        return response;//saveHistorico(historicoRequest);
+        historicoRequest.setStatus(response.isSuccess());
+        historicoRequest.setMessage(response.getMessage());
+        historicoRequest.setData(new Date());
+        saveHistorico(historicoRequest);
+        
+        return response;
     }
     
     private Historico saveHistorico(HistoricoRequest historicoRequest){

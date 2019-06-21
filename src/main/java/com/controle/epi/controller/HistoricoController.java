@@ -50,6 +50,7 @@ public class HistoricoController {
                 .orElseThrow(() -> new ResourceNotFoundException("Funcionario", "id", historicoRequest.getFuncionarioId()));
         
         historico.setData(historicoRequest.getData());
+        historico.setMessage(historicoRequest.getMessage());
         historico.setSetor(setor);
         historico.setFuncionario(funcionario);
         historico.setStatus(historicoRequest.getStatus());

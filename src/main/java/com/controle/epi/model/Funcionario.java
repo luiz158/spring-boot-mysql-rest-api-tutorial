@@ -29,7 +29,7 @@ public class Funcionario {
     private String email;
     private String telefone;
     private String cargo;
-    private boolean admin;
+    private boolean administrador;
     private Date dataNascimento;
 
     @Column(nullable = false, updatable = false)
@@ -139,11 +139,11 @@ public class Funcionario {
     }
 
     public boolean isAdmin() {
-        return admin;
+        return administrador;
     }
 
     public void setAdmin(boolean admin) {
-        this.admin = admin;
+        this.administrador = admin;
     }
 
     public Date getDataNascimento() {

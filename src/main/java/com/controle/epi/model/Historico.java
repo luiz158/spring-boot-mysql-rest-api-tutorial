@@ -19,7 +19,8 @@ public class Historico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idHistorico;
     
-    private String status;
+    private boolean status;
+    private String message;
     private Date data;
     
     @ManyToOne
@@ -32,14 +33,6 @@ public class Historico {
     
     @OneToMany(mappedBy="idHistorico")
     private List<HistoricoEpi> historicoEpis;
-
-    public List<HistoricoEpi> getHistoricoEpis() {
-        return historicoEpis;
-    }
-
-    public void setHistoricoEpis(List<HistoricoEpi> historicoEpis) {
-        this.historicoEpis = historicoEpis;
-    }
     
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -50,24 +43,40 @@ public class Historico {
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
-
+    
+    public String getMessage() {
+        return message;
+    }
+    
     public Long getIdHistorico() {
         return idHistorico;
     }
 
-    public String getStatus() {
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public boolean getStatus() {
         return status;
     }
 
     public Date getData() {
         return data;
     }
+    
+    public List<HistoricoEpi> getHistoricoEpis() {
+        return historicoEpis;
+    }
 
+    public void setHistoricoEpis(List<HistoricoEpi> historicoEpis) {
+        this.historicoEpis = historicoEpis;
+    }
+    
     public void setIdHistorico(Long idHistorico) {
         this.idHistorico = idHistorico;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 

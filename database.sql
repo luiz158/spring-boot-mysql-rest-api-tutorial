@@ -11,7 +11,7 @@ create table funcionario (
     email varchar(80) default null,
     telefone varchar(15) default null,
     cargo varchar(30) default null,
-    admin boolean,
+    administrador boolean,
     data_nascimento date,
     primary key (id_funcionario)
 );
@@ -58,6 +58,7 @@ create table epi_funcionario (
 create table historico (
     id_historico bigint not null auto_increment,
     status boolean,
+	message varchar(255),
     data date,
     funcionario bigint,
     setor bigint,

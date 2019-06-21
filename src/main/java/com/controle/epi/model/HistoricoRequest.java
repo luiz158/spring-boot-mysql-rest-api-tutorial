@@ -4,11 +4,20 @@ import java.util.Date;
 import java.util.List;
 
 public class HistoricoRequest {
-    private String status;
+    private boolean status;
+    private String message;
     private Date data;
     private Long funcionarioId;
     private Long setorId;
     private List<Long> epis;
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 
     public void setEpis(List<Long> epis) {
         this.epis = epis;
@@ -18,7 +27,7 @@ public class HistoricoRequest {
         return epis;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -34,7 +43,7 @@ public class HistoricoRequest {
         this.setorId = setorId;
     }
 
-    public String getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
