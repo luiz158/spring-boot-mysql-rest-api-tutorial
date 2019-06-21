@@ -60,7 +60,6 @@ public class EventController {
         
         historicoRequest.setStatus(response.isSuccess());
         historicoRequest.setMessage(response.getMessage());
-        historicoRequest.setData(new Date());
         saveHistorico(historicoRequest);
         
         return response;
@@ -75,7 +74,7 @@ public class EventController {
         Funcionario funcionario = funcionarioRepository.findById(historicoRequest.getFuncionarioId())
                 .orElseThrow(() -> new ResourceNotFoundException("Funcionario", "id", historicoRequest.getFuncionarioId()));
         
-        historico.setData(historicoRequest.getData());
+        historico.setMessage(historicoRequest.getMessage());
         historico.setSetor(setor);
         historico.setFuncionario(funcionario);
         historico.setStatus(historicoRequest.getStatus());

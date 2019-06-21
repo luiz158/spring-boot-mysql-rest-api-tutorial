@@ -6,7 +6,6 @@ import java.util.List;
 public class HistoricoRequest {
     private boolean status;
     private String message;
-    private Date data;
     private Long funcionarioId;
     private Long setorId;
     private List<Long> epis;
@@ -31,10 +30,6 @@ public class HistoricoRequest {
         this.status = status;
     }
 
-    public void setData(Date data) {
-        this.data = data;
-    }
-
     public void setFuncionarioId(Long funcionarioId) {
         this.funcionarioId = funcionarioId;
     }
@@ -45,10 +40,6 @@ public class HistoricoRequest {
 
     public boolean getStatus() {
         return status;
-    }
-
-    public Date getData() {
-        return data;
     }
 
     public Long getFuncionarioId() {

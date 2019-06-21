@@ -59,7 +59,6 @@ create table historico (
     id_historico bigint not null auto_increment,
     status boolean,
 	message varchar(255),
-    data date,
     funcionario bigint,
     setor bigint,
     foreign key (funcionario)
