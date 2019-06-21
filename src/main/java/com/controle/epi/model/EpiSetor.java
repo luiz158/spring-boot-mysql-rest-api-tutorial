@@ -22,9 +22,7 @@ public class EpiSetor {
     @JoinColumn(name = "epi")
     private Epi epi;
 
-    @ManyToOne
-    @JoinColumn(name = "setor")
-    private Setor setor;
+    private Long setor;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -52,11 +50,11 @@ public class EpiSetor {
         this.epi = epi;
     }
 
-    public Setor getSetor() {
+    public Long getSetor() {
         return setor;
     }
 
-    public void setSetor(Setor setor) {
+    public void setSetor(Long setor) {
         this.setor = setor;
     }
 

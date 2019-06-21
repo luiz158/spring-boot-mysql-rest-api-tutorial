@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "setor")
@@ -23,6 +24,17 @@ public class Setor {
     @ManyToOne
     @JoinColumn(name = "responsavel")
     private Funcionario responsavel;
+    
+    @OneToMany(mappedBy="setor")
+    private List<EpiSetor> epis;
+
+    public void setEpis(List<EpiSetor> epis) {
+        this.epis = epis;
+    }
+
+    public List<EpiSetor> getEpis() {
+        return epis;
+    }
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
