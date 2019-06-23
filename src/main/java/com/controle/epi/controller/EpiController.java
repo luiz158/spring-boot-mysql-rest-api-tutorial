@@ -2,7 +2,11 @@ package com.controle.epi.controller;
 
 import com.controle.epi.exception.ResourceNotFoundException;
 import com.controle.epi.model.Epi;
+import com.controle.epi.model.EpiFuncionario;
+import com.controle.epi.model.EpiSetor;
+import com.controle.epi.repository.EpiFuncionarioRepository;
 import com.controle.epi.repository.EpiRepository;
+import com.controle.epi.repository.EpiSetorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +21,10 @@ public class EpiController {
 
     @Autowired
     EpiRepository epiRepository;
+    @Autowired
+    EpiSetorRepository epiSetorRepository;
+    @Autowired
+    EpiFuncionarioRepository epiFuncionarioRepository;
 
     @GetMapping("/epis")
     public List<Epi> getAllEpis() {
@@ -49,9 +57,19 @@ public class EpiController {
 
     @DeleteMapping("/epis/{id}")
     public ResponseEntity<?> deleteEpi(@PathVariable(value = "id") Long epiId) {
+        List<EpiFuncionario> epiFuncionarioList = epiFuncionarioRepository.findByEpi(epiId);
+        for(EpiFuncionario epiFuncionario: epiFuncionarioList){
+            epiFuncionarioRepository.delete(epiFuncionario);
+        }
+        
+        List<EpiSetor> epiSetorList = epiSetorRepository.findByEpi(epiId);
+        for(EpiSetor epiSetor: epiSetorList){
+            epiSetorRepository.delete(epiSetor);
+        }
+        
         Epi epi = epiRepository.findById(epiId)
                 .orElseThrow(() -> new ResourceNotFoundException("Epi", "id", epiId));
-
+        
         epiRepository.delete(epi);
 
         return ResponseEntity.ok().build();

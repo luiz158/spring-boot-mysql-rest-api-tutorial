@@ -13,4 +13,7 @@ public interface EpiSetorRepository extends JpaRepository<EpiSetor, Long> {
     @Query(value = "SELECT * FROM epi_setor where setor = ?1", nativeQuery = true)
     List<EpiSetor> findBySetor(Long setorId);
     
+    @Query(value = "SELECT * FROM epi_setor where epi = ?1", nativeQuery = true)
+    List<EpiSetor> findByEpi(Long epiId);
+    
 }
