@@ -2,6 +2,8 @@ package com.controle.epi.controller;
 
 import com.controle.epi.exception.ResourceNotFoundException;
 import com.controle.epi.model.Funcionario;
+import com.controle.epi.model.LoginRequest;
+import com.controle.epi.model.LoginResponse;
 import com.controle.epi.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -67,5 +69,19 @@ public class FuncionarioController {
         funcionarioRepository.delete(funcionario);
 
         return ResponseEntity.ok().build();
+    }
+    
+    @PostMapping("/login")
+    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
+        List<Funcionario> listFuncionario = funcionarioRepository.login(loginRequest.getEmail(), loginRequest.getPassword());
+        
+        LoginResponse response = new LoginResponse();
+        if(listFuncionario.size() > 0){
+            response.setSuccess(true);
+        } else {
+            response.setSuccess(false);
+            response.setMessage("Email ou senha incorretos, ou você não tem permissão para efetuar o login");
+        }
+        return response;
     }
 }
