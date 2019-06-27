@@ -1,3 +1,5 @@
+START TRANSACTION;
+
 create table funcionario (
     id_funcionario bigint not null auto_increment,
     nome varchar(70) default null,
@@ -13,6 +15,8 @@ create table funcionario (
     cargo varchar(30) default null,
     administrador boolean,
     data_nascimento date,
+    created_at datetime,
+    updated_at datetime,
     primary key (id_funcionario)
 );
 
@@ -78,3 +82,40 @@ create table historico_epi (
         references epi (id_epi),
     primary key (id_historico_epi)
 );
+
+
+insert into funcionario (
+    nome,
+    rua,
+    numero,
+    cidade,
+    estado,
+    pais,
+    cep,
+    cpf,
+    email,
+    telefone,
+    cargo,
+    administrador,
+    data_nascimento,
+    created_at,
+    updated_at
+) values (
+    'Jonas Ritter',
+    'Rua de teste',
+    10,
+    'Rio Claro',
+    'SP',
+    'Brasil',
+    '12122122',
+    '1234',
+    'admin',
+    '11112222',
+    'Desenvolvedor',
+    1,
+    '1990-01-30',
+    now(),
+    now()
+);
+
+COMMIT;
