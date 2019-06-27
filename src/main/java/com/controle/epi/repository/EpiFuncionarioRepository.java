@@ -11,4 +11,7 @@ public interface EpiFuncionarioRepository extends JpaRepository<EpiFuncionario, 
 
     @Query(value = "SELECT * FROM epi_funcionario where epi = ?1", nativeQuery = true)
     List<EpiFuncionario> findByEpi(Long epiId);
+    
+    @Query(value = "SELECT * FROM epi_funcionario where responsavel = ?1", nativeQuery = true)
+    List<EpiFuncionario> findByFuncionario(Long funcionarioId);
 }

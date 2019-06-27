@@ -2,6 +2,7 @@ package com.controle.epi.controller;
 
 import com.controle.epi.exception.ResourceNotFoundException;
 import com.controle.epi.model.Epi;
+import com.controle.epi.model.EpiFuncionario;
 import com.controle.epi.model.EpiSetor;
 import com.controle.epi.model.EventResponse;
 import com.controle.epi.model.Funcionario;
@@ -9,6 +10,7 @@ import com.controle.epi.model.Historico;
 import com.controle.epi.model.HistoricoEpi;
 import com.controle.epi.model.HistoricoRequest;
 import com.controle.epi.model.Setor;
+import com.controle.epi.repository.EpiFuncionarioRepository;
 import com.controle.epi.repository.EpiRepository;
 import com.controle.epi.repository.EpiSetorRepository;
 import com.controle.epi.repository.FuncionarioRepository;
@@ -40,6 +42,8 @@ public class EventController {
     EpiRepository epiRepository;
     @Autowired
     EpiSetorRepository epiSetorRepository;
+    @Autowired
+    EpiFuncionarioRepository epiFuncionarioRepository;
 
     @PostMapping("/registerEvent")
     public EventResponse createEvent(@Valid @RequestBody HistoricoRequest historicoRequest) {
@@ -49,12 +53,28 @@ public class EventController {
         List<Epi> episObrigatorios = epiSetorList.stream().map(x -> x.getEpi()).collect(Collectors.toList());
         
         List<Long> episLidos = historicoRequest.getEpis();
+        List<EpiFuncionario> episFuncionario = epiFuncionarioRepository.findByFuncionario(historicoRequest.getFuncionarioId());
         
         for(Epi epi: episObrigatorios){
-            episLidos.contains(1);
             if(!episLidos.contains(epi.getIdEpi())){
                 response.setSuccess(false);
                 response.concatMessage(epi.getNome());
+            } else {
+                boolean found = false;
+                for(EpiFuncionario epiFuncionario: episFuncionario){
+                    if(epiFuncionario.getEpi().getIdEpi() == epi.getIdEpi()){
+                        found = true;
+                        Date now = new Date(System.currentTimeMillis()); 
+                        if(epiFuncionario.getValidade().before(now)){
+                            response.setSuccess(false);
+                            response.concatMessage(epi.getNome() + "(prazo de validade)");
+                        }
+                    }
+                }
+                if(!found){
+                    response.setSuccess(false);
+                    response.concatMessage(epi.getNome() + "(EPI não pertence ao funcionário)");
+                }
             }
         }
         
