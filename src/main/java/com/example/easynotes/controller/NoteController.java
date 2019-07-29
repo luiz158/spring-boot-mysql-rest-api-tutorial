@@ -4,6 +4,7 @@ import com.example.easynotes.exception.ResourceNotFoundException;
 import com.example.easynotes.model.Note;
 import com.example.easynotes.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,27 @@ public class NoteController {
         return noteRepository.findAll();
     }
 
+    @GetMapping("/notes-spec")
+    public List<NoteDTO> getAllNotesWithSpec(@RequestParam(required = false) String title, @RequestParam(required = false) String content) {
+
+          List<NoteDTO>  noteList  = noteRepository.findAllCustom(Specification.where(likeTitle(title).or(likeContent(content))));
+        return noteList;
+    }
+
+    public Specification likeTitle(String title) {
+
+        return (root, query, cb) -> {
+            return (title == null) ? null : cb.like(root.get("title"), "%" + title + "%");
+        };
+    }
+
+    public Specification likeContent(String content) {
+        return (root, query, cb) -> {
+            return (content == null) ? null : cb.like(root.get("content"), "%" + content + "%");
+        };
+    }
+
+
     @PostMapping("/notes")
     public Note createNote(@Valid @RequestBody Note note) {
         return noteRepository.save(note);
@@ -38,7 +60,7 @@ public class NoteController {
 
     @PutMapping("/notes/{id}")
     public Note updateNote(@PathVariable(value = "id") Long noteId,
-                                           @Valid @RequestBody Note noteDetails) {
+                           @Valid @RequestBody Note noteDetails) {
 
         Note note = noteRepository.findById(noteId)
                 .orElseThrow(() -> new ResourceNotFoundException("Note", "id", noteId));
