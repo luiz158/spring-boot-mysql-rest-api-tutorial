@@ -1,6 +1,8 @@
 package com.example.easynotes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -14,28 +16,17 @@ import java.util.Date;
 @Entity
 @Table(name = "BoxEvent")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"location","fromBox","toBox","packageType"},
-        allowGetters = true)
 public class BoxEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
+    @Column(nullable = false, updatable = false)   
+    @CreationTimestamp  
     private Date timestamp;
 
-    @NotBlank
-    private Location location;
-    
-    public String getPackageType() {
-		return packageType;
-	}
-
-	public void setPackageType(String packageType) {
-		this.packageType = packageType;
-	}
+   
+    private Location location;     
 
 	private String fromBox;
     
@@ -44,8 +35,35 @@ public class BoxEvent {
     private String packageType;
     
     private String state;
+    
+    private String status;
+    
+    private String errorMessage;
 
 
+    public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public String getPackageType() {
+		return packageType;
+	}
+
+	public void setPackageType(String packageType) {
+		this.packageType = packageType;
+	}
     public String getState() {
 		return state;
 	}

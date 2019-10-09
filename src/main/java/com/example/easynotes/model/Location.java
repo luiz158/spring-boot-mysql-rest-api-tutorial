@@ -1,6 +1,6 @@
 package com.example.easynotes.model;
 
-enum Location {
+public enum Location {
 Location1,
 Location2,
 Location3,
