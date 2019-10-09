@@ -1,8 +1,13 @@
 package com.example.easynotes.controller;
 
 import com.example.easynotes.exception.ResourceNotFoundException;
+import com.example.easynotes.model.Box;
 import com.example.easynotes.model.BoxEvent;
+import com.example.easynotes.model.BoxState;
 import com.example.easynotes.repository.BoxEventRepository;
+import com.example.easynotes.repository.BoxRepository;
+import com.example.easynotes.repository.BoxStateRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,29 +26,55 @@ public class BoxTrackingController {
     BoxEventRepository boxEventRepository;
     
     @Autowired
-    BoxEventRepository boxRepository;
+    BoxRepository boxRepository;
     
     @Autowired
-    BoxEventRepository boxStateRepository;
+    BoxStateRepository boxStateRepository;
 
     @GetMapping("/boxes")
-    public List<BoxEvent> getAllNotes() {
+    public List<BoxEvent> getAllBoxEvents() {
         return boxEventRepository.findAll();
+    }
+    
+    @GetMapping("/boxStates")
+    public List<BoxState> getAllBoxStates() {
+        return boxStateRepository.findAll();
     }
 
     @PostMapping("/boxes")
-    public BoxEvent createNote(@Valid @RequestBody BoxEvent boxEvent) {
+    public BoxEvent createBoxEvent(@Valid @RequestBody BoxEvent boxEvent) {
         return boxEventRepository.save(boxEvent);
     }
+    
+    @PostMapping("/boxState")
+    public BoxState createBoxState(@Valid @RequestBody BoxState boxState) {
+        return boxStateRepository.save(boxState);
+    }
+    
+    @GetMapping("/box")
+    public List<Box> getAllBoxes() {
+        return boxRepository.findAll();
+    }
+    
+    @PostMapping("/box")
+    public Box createBox(@Valid @RequestBody Box box) {
+        return boxRepository.save(box);
+    }
 
-    @GetMapping("/notes/{id}")
-    public BoxEvent getNoteById(@PathVariable(value = "id") Long boxId) {
+    @GetMapping("/box/{id}")
+    public Box getBoxById(@PathVariable(value = "id") Long boxId) {
+        return boxRepository.findById(boxId)
+                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", boxId));
+    }
+    
+    @GetMapping("/boxes/{id}")
+    public BoxEvent getBoxEventById(@PathVariable(value = "id") Long boxId) {
         return boxEventRepository.findById(boxId)
                 .orElseThrow(() -> new ResourceNotFoundException("Note", "id", boxId));
     }
 
-    @PutMapping("/notes/{id}")
-    public BoxEvent updateNote(@PathVariable(value = "id") Long boxId,
+    @PutMapping("/boxes/{id}")
+    public BoxEvent updateBox(@PathVariable(value = "id") Long boxId,
                                            @Valid @RequestBody BoxEvent boxDetails) {
 
         BoxEvent boxEvent = boxEventRepository.findById(boxId)
@@ -54,8 +85,8 @@ public class BoxTrackingController {
       
     }
 
-    @DeleteMapping("/notes/{id}")
-    public ResponseEntity<?> deleteNote(@PathVariable(value = "id") Long boxId) {
+    @DeleteMapping("/boxes/{id}")
+    public ResponseEntity<?> deleteBox(@PathVariable(value = "id") Long boxId) {
         BoxEvent boxEvent = boxEventRepository.findById(boxId)
                 .orElseThrow(() -> new ResourceNotFoundException("Note", "id", boxId));
 
