@@ -19,12 +19,14 @@ public class NoteController {
 
     @Autowired
     NoteRepository noteRepository;
-
+    
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/notes")
     public List<Note> getAllNotes() {
         return noteRepository.findAll();
     }
-
+    
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/notes")
     public Note createNote(@Valid @RequestBody Note note) {
         return noteRepository.save(note);
@@ -36,6 +38,7 @@ public class NoteController {
                 .orElseThrow(() -> new ResourceNotFoundException("Note", "id", noteId));
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @PutMapping("/notes/{id}")
     public Note updateNote(@PathVariable(value = "id") Long noteId,
                                            @Valid @RequestBody Note noteDetails) {
@@ -49,7 +52,8 @@ public class NoteController {
         Note updatedNote = noteRepository.save(note);
         return updatedNote;
     }
-
+    
+    @CrossOrigin(origins = "http://localhost:8080")
     @DeleteMapping("/notes/{id}")
     public ResponseEntity<?> deleteNote(@PathVariable(value = "id") Long noteId) {
         Note note = noteRepository.findById(noteId)
