@@ -1,8 +1,8 @@
-package com.example.easynotes;
+package com.example.workaround;
 
 // @RunWith(SpringRunner.class)
 // @SpringBootTest
-public class EasyNotesApplicationTests {
+public class WorkaroundApplicationTests {
 
   // @Test
   // public void contextLoads() {

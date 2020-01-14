@@ -1,4 +1,4 @@
-package com.example.easynotes;
+package com.example.workaround;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-public class EasyNotesApplication {
+public class WorkaroundApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EasyNotesApplication.class, args);
+		SpringApplication.run(WorkaroundApplication.class, args);
 	}
 }

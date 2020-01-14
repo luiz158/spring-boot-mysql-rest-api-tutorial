@@ -1,11 +1,8 @@
-package com.example.easynotes.controller;
+package com.example.workaround.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Created by rajeevkumarsingh on 27/06/17.
- */
 @RestController
 @RequestMapping("/api")
 public class NoteController {

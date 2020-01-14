@@ -1,6 +1,6 @@
-package com.example.easynotes.controller;
+package com.example.workaround.controller;
 
-import com.example.easynotes.model.User;
+import com.example.workaround.model.User;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ public class LoginController {
 
 
   @PostMapping("/login")
-  public User createNote(User user) {
+  public User loginUser(User user) {
     return user;
   }
 

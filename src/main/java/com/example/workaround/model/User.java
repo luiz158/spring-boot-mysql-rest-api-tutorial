@@ -1,4 +1,4 @@
-package com.example.easynotes.model;
+package com.example.workaround.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
