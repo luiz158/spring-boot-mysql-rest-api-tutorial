@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +28,16 @@ public class User {
   }
 
   public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public User() {
+    super();
+  }
+
+  public User(Long id, String password) {
+    super();
+    this.id = id;
     this.password = password;
   }
 
