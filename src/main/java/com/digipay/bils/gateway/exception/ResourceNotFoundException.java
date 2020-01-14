@@ -1,4 +1,4 @@
-package com.example.easynotes.exception;
+package com.digipay.bils.gateway.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

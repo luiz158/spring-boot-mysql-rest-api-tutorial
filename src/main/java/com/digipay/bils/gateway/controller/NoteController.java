@@ -1,8 +1,8 @@
-package com.example.easynotes.controller;
+package com.digipay.bils.gateway.controller;
 
-import com.example.easynotes.exception.ResourceNotFoundException;
-import com.example.easynotes.model.Note;
-import com.example.easynotes.repository.NoteRepository;
+import com.digipay.bils.gateway.model.Note;
+import com.digipay.bils.gateway.repository.NoteRepository;
+import com.digipay.bils.gateway.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

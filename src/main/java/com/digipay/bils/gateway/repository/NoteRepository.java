@@ -1,6 +1,6 @@
-package com.example.easynotes.repository;
+package com.digipay.bils.gateway.repository;
 
-import com.example.easynotes.model.Note;
+import com.digipay.bils.gateway.model.Note;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

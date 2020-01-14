@@ -1,4 +1,4 @@
-package com.example.easynotes;
+package com.digipay.bils.gateway;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class EasyNotesApplicationTests {
+public class BillEngineApplicationTests {
 
 	@Test
 	public void contextLoads() {
